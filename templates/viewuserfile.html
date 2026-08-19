@@ -1,0 +1,115 @@
+{% load static %}
+{% block content %}
+{% include 'header.html' %}
+
+    <div id="contact" class="contact-us section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="text-center mb-4">Your Uploaded Files & Predictions</h2>
+        </div>
+      </div>
+      
+      {% if result %}
+      <div class="row">
+        <div class="col-12">
+          <div class="table-responsive" style="margin-left: 60px;">
+            <table class="table table-hover shadow-sm">
+              <thead class="table-light">
+                <tr>
+                  <th style="width: 6%;">#</th>
+                  <th style="width: 40%;">Data</th>
+                  <th style="width: 34%;">Prediction Result</th>
+                  <th style="width: 20%;">Upload Time</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in result %}
+                <tr class="align-middle">
+                  <td><span class="badge bg-secondary">{{ forloop.counter }}</span></td>
+                   <td>
+                    {% if i.data %}
+                    <button class="btn btn-primary btn-sm view-data-btn" data-data="{{ i.data }}">View Data</button>
+                    {% else %}
+                    <span class="badge bg-secondary">No Data</span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {% if 'Anomaly' in i.result %}
+                    <span class="badge bg-danger p-2" style="font-size: 12px;">
+                      <i class="fas fa-exclamation-triangle"></i> {{ i.result }}
+                    </span>
+                    {% elif 'Normal' in i.result %}
+                    <span class="badge bg-success p-2" style="font-size: 12px;">
+                      <i class="fas fa-check-circle"></i> {{ i.result }}
+                    </span>
+                    {% else %}
+                    <span class="badge bg-warning p-2" style="font-size: 12px;">
+                      <i class="fas fa-info-circle"></i> {{ i.result }}
+                    </span>
+                    {% endif %}
+                  </td>
+                  <td>{{ i.upload_time }}</td>
+                 
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Backdrop for modal -->
+      <div id="modalBackdrop" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 29999; display: none;" onclick="closeModal()"></div>
+
+      <!-- Modal for viewing data -->
+      <div id="dataModal" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid black; z-index: 30000; display: none; width: 90vw; height: 90vh; overflow: hidden;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <h5>Data</h5>
+          <span onclick="closeModal()" style="cursor: pointer; font-size: 20px;">&times;</span>
+        </div>
+        <textarea id="dataContent" readonly style="width:100%; height: calc(100% - 60px); font-family: monospace;"></textarea>
+      </div>
+
+      <div class="contact-dec">
+        <img src="{% static 'assets/images/contact-dec.png' %}" alt="">
+      </div>
+      <div class="contact-left-dec">
+        <img src="{% static 'assets/images/contact-left-dec.png' %}" alt="">
+      </div>
+    </div>
+
+    {% endif %}
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <script>
+    function closeModal() {
+      document.getElementById('dataModal').style.display = 'none';
+      document.getElementById('modalBackdrop').style.display = 'none';
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('view-data-btn')) {
+        e.preventDefault();
+        const data = e.target.dataset.data;
+        try {
+          const parsed = JSON.parse(data);
+          document.getElementById('dataContent').value = JSON.stringify(parsed, null, 2);
+        } catch (err) {
+          document.getElementById('dataContent').value = data;
+        }
+        document.getElementById('dataModal').style.display = 'block';
+        document.getElementById('modalBackdrop').style.display = 'block';
+      }
+    });
+    </script>
+
+    {% endblock %}

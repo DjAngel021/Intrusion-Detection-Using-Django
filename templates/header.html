@@ -1,0 +1,91 @@
+
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <title>Intrusion Detection System</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+
+    <!-- Additional CSS Files -->
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/templatemo-onix-digital.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animated.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.css' %}">
+
+ 
+
+<!--
+
+TemplateMo 565 Onix Digital
+
+https://templatemo.com/tm-565-onix-digital
+
+-->
+  </head>
+
+<body>
+
+  <!-- ***** Preloader Start ***** -->
+ 
+  <!-- ***** Preloader End ***** -->
+
+  <!-- ***** Header Area Start ***** -->
+  <header class="header-area header-sticky wow slideInDown" data-wow-duration="0.75s" data-wow-delay="0s">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <nav class="main-nav">
+            <!-- ***** Logo Start ***** -->
+            <!-- <a href="index.html" class="logo">
+              <img src="{% static 'assets/images/logo.png' %}">
+            </a> -->  
+            <h2 class="logo" style="color: #336edb; text-transform: capitalize;">Intrusion Detection System</h2>
+            <!-- ***** Logo End ***** -->
+            <!-- ***** Menu Start ***** -->
+            <ul class="nav">  
+               {% if request.session.details %}
+              <li class="scroll-to-section"><a href="http://127.0.0.1:8000/index" class="active">Home</a></li>
+              <li class="scroll-to-section"><a href="http://127.0.0.1:8000/v_register">View User</a></li>
+              <li class="scroll-to-section"><a href="http://127.0.0.1:8000/v_addfile">View Uploads</a></li>
+              <li class="scroll-to-section"><a href="http://127.0.0.1:8000/logout" class="">Logout</a></li>
+              <li></li>
+
+               {% elif request.session.uid %}
+              <li class="scroll-to-section"><a href="http://127.0.0.1:8000/index" class="active">Home</a></li>
+              <li class="scroll-to-section"><a href="http://127.0.0.1:8000/file">Upload</a></li>
+              <li class="scroll-to-section"><a href="http://127.0.0.1:8000/logout">logout</a></li>
+              <li></li>
+              <!--<li class="scroll-to-section"><a href="http://127.0.0.1:8000/v_addfile_user">View Uploads</a></li>-->
+              <!--<li class="scroll-to-section"><a href="http://127.0.0.1:8000/logout" class="">Logout</a></li>-->
+                   {% else %}
+                                 <li class="scroll-to-section"><a href="http://127.0.0.1:8000/index">Home</a></li> 
+                                 <li class="scroll-to-section"><a href="http://127.0.0.1:8000/about">About Us</a></li> 
+                                               <li class="scroll-to-section"><a href="http://127.0.0.1:8000/reg">Register</a></li> 
+
+              <li class="scroll-to-section"><a href="http://127.0.0.1:8000/login">Login</a></li> 
+              <li></li>
+                {% endif %}
+            </ul>        
+            <a class='menu-trigger'>
+                <span>Menu</span>
+            </a>
+            <!-- ***** Menu End ***** -->
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+  {% endblock %}

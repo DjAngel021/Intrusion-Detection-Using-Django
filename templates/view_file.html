@@ -1,0 +1,85 @@
+{% load static %}
+{% block content %}
+{% include 'header.html' %}
+
+    <div id="contact" class="contact-us section">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h2 class="text-center mb-4">User Files</h2>
+        </div>
+      </div>
+      <div class="row">
+        {% for i in result %}
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card h-100 shadow-sm" style="{% if 'Normal' in i.result %}background-color: lightgreen;{% elif 'Anomaly' in i.result %}background-color: lightcoral;{% endif %}">
+            <div class="card-body text-center">
+              <h5 class="card-title">{{ i.username }}</h5>
+              <p class="mb-2"><strong>Result:</strong> {{ i.result }}</p>
+              <p class="mb-2"><strong>Occured At:</strong> {{ i.upload_time }}</p>
+              {% if i.data %}
+              <button class="btn btn-primary btn-sm view-data-btn" data-data="{{ i.data }}">View Data</button>
+              {% else %}
+              <small class="text-muted">No data</small>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="contact-dec">
+      <img src="{% static 'assets/images/contact-dec.png' %}" alt="">
+    </div>
+    <div class="contact-left-dec">
+      <img src="{% static 'assets/images/contact-left-dec.png' %}" alt="">
+    </div>
+  </div>
+
+
+
+
+  <!-- Backdrop for modal -->
+  <div id="modalBackdrop" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 29999; display: none;" onclick="closeModal()"></div>
+
+  <!-- Modal for viewing data -->
+  <div id="dataModal" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid black; z-index: 30000; display: none; width: 90vw; height: 90vh; overflow: hidden;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <h5>Data</h5>
+      <span onclick="closeModal()" style="cursor: pointer; font-size: 20px;">&times;</span>
+    </div>
+    <textarea id="dataContent" readonly style="width:100%; height: calc(100% - 60px); font-family: monospace;"></textarea>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+  <script>
+  function closeModal() {
+    document.getElementById('dataModal').style.display = 'none';
+    document.getElementById('modalBackdrop').style.display = 'none';
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('view-data-btn')) {
+      e.preventDefault();
+      const data = e.target.dataset.data;
+      try {
+        const parsed = JSON.parse(data);
+        document.getElementById('dataContent').value = JSON.stringify(parsed, null, 2);
+      } catch (err) {
+        document.getElementById('dataContent').value = data;
+      }
+      document.getElementById('dataModal').style.display = 'block';
+      document.getElementById('modalBackdrop').style.display = 'block';
+    }
+  });
+  </script>
+
+  {% endblock %}
