@@ -1,0 +1,6 @@
+duration,protocol_type,service,flag,src_bytes,dst_bytes,root_shell,su_attempted,num_root,num_file_creations,num_shells,count,srv_count,label
+30,tcp,telnet,SF,300,200,1,1,2,3,1,2,1,u2r
+25,tcp,ftp,SF,250,180,1,1,3,2,1,3,1,u2r
+35,tcp,http,SF,400,300,1,1,4,3,2,2,1,u2r
+28,tcp,telnet,SF,320,210,1,1,2,4,1,3,1,u2r
+32,tcp,ftp,SF,280,190,1,1,3,3,1,2,1,u2r

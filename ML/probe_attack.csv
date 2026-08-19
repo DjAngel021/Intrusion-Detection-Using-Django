@@ -1,0 +1,6 @@
+duration,protocol_type,service,flag,src_bytes,dst_bytes,count,srv_count,serror_rate,srv_serror_rate,rerror_rate,srv_rerror_rate,same_srv_rate,diff_srv_rate,dst_host_count,dst_host_srv_count,dst_host_same_srv_rate,label
+0,tcp,http,SF,120,300,15,3,0.0,0.0,0.2,0.1,0.3,0.7,200,40,0.2,probe
+0,tcp,ftp,SF,200,100,20,5,0.0,0.0,0.3,0.2,0.2,0.8,180,30,0.1,probe
+0,tcp,telnet,REJ,0,0,18,4,0.1,0.1,0.5,0.4,0.2,0.8,210,35,0.2,probe
+0,tcp,smtp,SF,150,200,22,6,0.0,0.0,0.4,0.3,0.3,0.7,195,50,0.25,probe
+0,tcp,domain_u,SF,90,120,17,5,0.0,0.0,0.3,0.2,0.4,0.6,205,45,0.3,probe

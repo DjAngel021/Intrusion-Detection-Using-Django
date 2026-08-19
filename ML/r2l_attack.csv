@@ -1,0 +1,6 @@
+duration,protocol_type,service,flag,src_bytes,dst_bytes,num_failed_logins,logged_in,num_compromised,count,srv_count,serror_rate,rerror_rate,dst_host_count,dst_host_srv_count,label
+10,tcp,ftp,SF,100,50,3,0,0,5,2,0.0,0.4,50,10,r2l
+15,tcp,telnet,SF,120,60,4,0,0,6,2,0.0,0.5,60,12,r2l
+20,tcp,http,SF,200,150,5,0,0,7,3,0.0,0.3,55,11,r2l
+12,tcp,ftp,SF,80,40,2,0,0,4,1,0.0,0.2,45,9,r2l
+18,tcp,smtp,SF,140,70,3,0,0,6,2,0.0,0.4,52,10,r2l
